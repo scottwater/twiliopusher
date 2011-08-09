@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<title>Da Sample</title>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> 	
+		<script src="http://static.twilio.com/libs/twiliojs/1.0/twilio.js"></script>			
+		<script type="text/javascript">
+		    Twilio.Device.setup('<%= @token  %>');
+		
+		    function call() {
+						$("#log").html("Dailing");
+		        Twilio.Device.connect({"name" : "twilio_pusher" });
+		      }
+		
+				function hangup(){
+					$("#log").html("Handing up");
+					Twilio.Device.disconnectAll();
+				}
+
+		</script>
+		  <script src="http://js.pusherapp.com/1.8/pusher.min.js" type="text/javascript"></script>
+		  <script type="text/javascript">
+		    // Enable pusher logging - don't include this in production
+		    Pusher.log = function(message) {
+		      if (window.console && window.console.log) window.console.log(message);
+		    };
+
+		    // Flash fallback logging - don't include this in production
+		    WEB_SOCKET_DEBUG = true;
+
+		    var pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
+		    var channel = pusher.subscribe('websocket-test-channel');
+		    channel.bind('testing', function(data) {
+					$("#log").html("Message Recieved: " + data);
+		    });
+		  </script>
+
+		
+	</head>
+	<body>
+		<h1>Sample App For Twilio and Pusher</h1>
+		<p>To see it in action, click call, wait for the beep, and then press hangup. </p>
+		<p>A few moments later, the log should say message received.</p>
+		<p>This should work perfectly in Safari and Chrome and not so perfectly in FF or IE.</p>
+		<p>
+				<button onclick="call(); return false;">Call</button>
+				<button onclick="hangup(); return false;">Hang Up!</button>				
+			
+		<div id="log"></p>
+	</body>
+</html>

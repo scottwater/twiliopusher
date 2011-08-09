@@ -1,3 +1,9 @@
+## Update
+
+This issue has been temporarily resolved. The fix (for now) was to flip the order of Twilio and Pusher. If Pusher is loaded first, the conflict seems to be ignored. 
+
+Twilio and Pusher are both aware of the issue and it sounds like it will be resolved in the near future.
+
 ## Twilio and Pusher Example
 
 The goal of this sample is to demonstrate a websocket-js fallback bug between Twilio and Pusher. 
